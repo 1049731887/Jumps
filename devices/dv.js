@@ -1,21 +1,8 @@
 let auth_origin; // = [{ "name": "洛谷", "value": "qwer" }, { "Github": "asdf" }]
 var password;
 
-function getAuthData() {
-    // 获取 auth 值
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/auth/auth.json', true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            auth_origin = JSON.parse(xhr.responseText);
-            refreshAuth(auth_origin);
-        }
-    };
-    xhr.send();
-}
-
 $(document).ready(function () {
-    // password = prompt("输入密码", "");
+    password = prompt("输入密码", "");
     // 调试TODO
     password = "qwsss";
     if (!(password[0] == "q" && password[1] == "w")) {
@@ -57,4 +44,31 @@ function addOneAuth(data) {
 function to6Num(origin) {
     let the6Num = origin + " 6Num";
     return the6Num;
+}
+
+
+// 以下为dv.js
+
+$(document).ready(() => {
+    // password = prompt("输入密码", "");
+    // 调试TODO
+    password = "qwsss";
+    if (!(password[0] == "q" && password[1] == "w")) {
+        alert("密码错误！");
+        password = prompt("输入密码", "");
+    }
+
+})
+
+function getDvData(passwordWithSecrit) {
+    // 获取 json
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/data/devices.json?password=' + password, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            auth_origin = JSON.parse(xhr.responseText);
+            refreshAuth(auth_origin);
+        }
+    };
+    xhr.send();
 }
